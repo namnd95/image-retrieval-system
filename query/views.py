@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 from forms import QueryImageForm
 
-import process_query_image
+from process_image.run import run
 
 # Create your views here.
 
@@ -10,7 +10,7 @@ def query_image(request):
     if request.method == 'POST':
         form = QueryImageForm(request.POST, request.FILES)
         if form.is_valid():
-            result = process_query_image.run(request.FILES['file'])            
+            result = run(request.FILES['file'])            
             return render(request, 'result.html', result)
         print form.errors
     else:
