@@ -26,6 +26,8 @@ SECRET_KEY = '@8)oh*lg_3dxgxg&%+s=ike8b**$qqv^lgub2#^4#7aoex#yex'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_URL = '/media/'
 
 
 # Application definition
@@ -37,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'query',
 ]
 
 MIDDLEWARE = [
