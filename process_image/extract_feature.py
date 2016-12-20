@@ -1,6 +1,7 @@
 import numpy as np
 import os, sys, getopt
 import settings
+from datetime import datetime
 
 # Code from http://www.marekrei.com/blog/transforming-images-to-feature-vectors/
  
@@ -50,14 +51,14 @@ caffe.Classifier(model_prototxt, model_trained,
                        
                        
  
-def extract_feature(list_image_file):
+def extract_feature(list_image_file):    
+    start=datetime.now()
     batchsize = len(list_image_file)
-    print list_image_file
     net.blobs['data'].reshape(batchsize, data_blob_shape[1], data_blob_shape[2], data_blob_shape[3])
-    net.blobs['data'].data[...] = map(lambda x: transformer.preprocess('data',caffe.io.load_image(x)), list_image_file)
-        
+    net.blobs['data'].data[...] = map(lambda x: transformer.preprocess('data',caffe.io.load_image(x)), list_image_file)    
     #prediction = net.predict(input, oversample=False)
     res = net.forward()
     # predict = np.argmax(res['prob'], axis=1)
     # print predict
+    print datetime.now()-start
     return np.array( net.blobs[layer_name].data.reshape( len(net.blobs[layer_name].data), -1 ) )
